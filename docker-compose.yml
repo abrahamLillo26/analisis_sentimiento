@@ -1,0 +1,34 @@
+version: "2.4"
+
+services:
+  analisis_sentimiento:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    restart: always
+    hostname: analisis_sentimiento
+    container_name: analisis_sentimiento
+    # mem_limit: 256m
+    # cpus: 2
+    ports:
+      - "9091:5000"
+    # Durante el desarrollo se monta el directorio dentro del contenedor
+    # para modificar rapido la app
+    volumes:
+      - .:/opt/alloxentric
+    # env_file:
+    #   - logging-setup.env #importa logging-setup
+    #   - api.env #importa las configuraciones local de api
+    #   - .env
+    # environment:
+    #   - PORT=5000
+    # healthcheck:
+    #   test: curl --fail http://localhost:5000/health || exit 1
+    #   interval: 120s
+    #   retries: 5
+    #   start_period: 20s
+    #   timeout: 10s
+
+networks:
+  default:
+    name: alloxentric.com
